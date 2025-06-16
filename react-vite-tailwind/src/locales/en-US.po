@@ -1,0 +1,20 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-03-14 13:53+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en-US\n"
+
+#: src/widgets/error-boundary/index.tsx
+msgid "This page are you looking isn`t available. Try to reload again or use the button below."
+msgstr "This page are you looking isn`t available. Try to reload again or use the button below."
+
+#: src/widgets/error-boundary/index.tsx
+msgid "Reload Page"
+msgstr "Reload Page"
+
+#: src/widgets/error-boundary/index.tsx
+msgid "Service Temporarily Unavailable"
+msgstr "Service Temporarily Unavailable"

@@ -1,0 +1,41 @@
+name: CI Build Analyze
+
+on:
+  pull_request:
+    branches: # start flow if PR in {} branche
+      - master
+      - develop
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # node -v
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.yarn
+            node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run linting
+        run: yarn lint:fix # Eslint
+
+      - name: Run build and analyze
+        run: yarn build
+        env:
+          CI: true # CI/CD runtime flag
+
