@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { authApi } from '@/shared/api/auth'
 import { APP_ROUTES } from '@/shared/constants/routes'
 import { validateEmail, validatePassword } from '@/shared/utils/validation'
 
@@ -25,7 +26,7 @@ export const RegisterPage = () => {
 
   const [errors, setErrors] = useState<RegisterFormErrors>({})
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const emailError = validateEmail(formState.email)
     const passwordError = validatePassword(formState.password)
@@ -39,11 +40,14 @@ export const RegisterPage = () => {
       })
       return
     }
-
-    console.log('Registration attempt:', {
-      email: formState.email,
-      password: formState.password
-    })
+    try {
+      await authApi.register({
+        email: formState.email,
+        password: formState.password
+      })
+    } catch (error) {
+      console.error(`Error registration`, error)
+    }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
