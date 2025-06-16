@@ -4,11 +4,11 @@ import { JwtService } from '@nestjs/jwt';
 
 import { Response } from 'express';
 
-import { UserService } from 'app/user/services/user.service';
+import { UserService } from 'apps/user/services/user.service';
 
-import { LoginDto } from 'app/user/dto/login.dto';
+import { LoginDto } from 'apps/user/dto/login.dto';
 
-import { RegisterDto } from '../../user/dto/register.dto';
+import { RegisterDto } from '../../../user/dto/register.dto';
 import { AUTH_TOKENS_CONFIG } from '../constants';
 import { AuthLoginRes } from '../types';
 

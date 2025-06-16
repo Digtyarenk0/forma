@@ -14,7 +14,7 @@ import { CommonModule } from './common/common.module';
 
 import configuration from 'config/configuration';
 
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './api/auth/auth.module';
 import { UserModule } from './user/user.module';
 
 const configImports = [

@@ -9,7 +9,7 @@ import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
 import { Logger } from 'nestjs-pino';
 
-import { AppModule } from 'app/app.module';
+import { AppModule } from 'apps/app.module';
 
 import { Swagger } from './swagger';
 

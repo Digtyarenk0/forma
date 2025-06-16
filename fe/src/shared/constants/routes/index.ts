@@ -1,3 +1,5 @@
 export const APP_ROUTES = {
-  main: '/main'
+  main: '/',
+  login: '/login',
+  register: '/register'
 }
