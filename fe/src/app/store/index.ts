@@ -3,11 +3,14 @@ import { enableMapSet } from 'immer'
 
 import { i18nSlice } from '../i18n/store'
 
+import userReducer from './userSlice'
+
 enableMapSet()
 
 export const store = configureStore({
   reducer: {
-    i18n: i18nSlice.reducer
+    i18n: i18nSlice.reducer,
+    user: userReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -1,7 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 
+import { setUserEmail } from '@/app/store/userSlice'
+import { authApi } from '@/shared/api/auth'
 import { APP_ROUTES } from '@/shared/constants/routes'
+import { decodeJwt } from '@/shared/lib/jwt'
 import { validateEmail, validatePassword } from '@/shared/utils/validation'
 
 interface LoginFormState {
@@ -15,6 +19,8 @@ interface LoginFormErrors {
 }
 
 export const LoginPage = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [formState, setFormState] = useState<LoginFormState>({
     email: '',
     password: ''
@@ -22,7 +28,7 @@ export const LoginPage = () => {
 
   const [errors, setErrors] = useState<LoginFormErrors>({})
 
-  const handleSubmit = (e: React.FormEvent): void => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
 
     const emailError = validateEmail(formState.email)
@@ -36,7 +42,24 @@ export const LoginPage = () => {
       return
     }
 
-    console.log('Login attempt:', formState)
+    try {
+      const response = await authApi.login({
+        email: formState.email,
+        password: formState.password
+      })
+
+      const decodedToken = decodeJwt(response.accessToken)
+      if (decodedToken?.email) {
+        dispatch(setUserEmail(decodedToken.email))
+        localStorage.setItem('token', response.accessToken)
+        navigate(APP_ROUTES.main)
+      }
+    } catch (error) {
+      console.error('Login error:', error)
+      setErrors({
+        email: 'Invalid email or password'
+      })
+    }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

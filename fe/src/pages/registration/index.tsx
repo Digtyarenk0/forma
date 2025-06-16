@@ -1,8 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 
+import { setUserEmail } from '@/app/store/userSlice'
 import { authApi } from '@/shared/api/auth'
 import { APP_ROUTES } from '@/shared/constants/routes'
+import { decodeJwt } from '@/shared/lib/jwt'
 import { validateEmail, validatePassword } from '@/shared/utils/validation'
 
 interface RegisterFormState {
@@ -18,6 +21,8 @@ interface RegisterFormErrors {
 }
 
 export const RegisterPage = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [formState, setFormState] = useState<RegisterFormState>({
     email: '',
     password: '',
@@ -41,12 +46,22 @@ export const RegisterPage = () => {
       return
     }
     try {
-      await authApi.register({
+      const response = await authApi.register({
         email: formState.email,
         password: formState.password
       })
+
+      const decodedToken = decodeJwt(response.accessToken)
+      if (decodedToken?.email) {
+        dispatch(setUserEmail(decodedToken.email))
+        localStorage.setItem('token', response.accessToken)
+        navigate(APP_ROUTES.main)
+      }
     } catch (error) {
-      console.error(`Error registration`, error)
+      console.error('Registration error:', error)
+      setErrors({
+        email: 'Email already exists'
+      })
     }
   }
 
