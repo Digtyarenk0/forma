@@ -1,8 +1,9 @@
 export interface ConfigAppType {
   port: number;
   logs: boolean;
+  appURL: string;
   jwt: {
-    secret: string;
+    accessSecret: string;
     accessExpires: string;
     refreshExpires: string;
   };

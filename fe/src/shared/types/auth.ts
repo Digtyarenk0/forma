@@ -6,3 +6,7 @@ export interface LoginRegisterRequest {
 export interface AuthResponse {
   accessToken: string
 }
+
+export enum ELocaleStorageKeys {
+  accessToken = 'accessToken'
+}

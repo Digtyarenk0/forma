@@ -6,6 +6,7 @@ import { setUserEmail } from '@/app/store/userSlice'
 import { authApi } from '@/shared/api/auth'
 import { APP_ROUTES } from '@/shared/constants/routes'
 import { decodeJwt } from '@/shared/lib/jwt'
+import { ELocaleStorageKeys } from '@/shared/types/auth'
 import { validateEmail, validatePassword } from '@/shared/utils/validation'
 
 interface RegisterFormState {
@@ -54,7 +55,7 @@ export const RegisterPage = () => {
       const decodedToken = decodeJwt(response.accessToken)
       if (decodedToken?.email) {
         dispatch(setUserEmail(decodedToken.email))
-        localStorage.setItem('token', response.accessToken)
+        localStorage.setItem(ELocaleStorageKeys.accessToken, response.accessToken)
         navigate(APP_ROUTES.main)
       }
     } catch (error) {

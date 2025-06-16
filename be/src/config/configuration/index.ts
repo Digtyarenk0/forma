@@ -3,8 +3,9 @@ import { ConfigAppType } from './config.type';
 export default (): ConfigAppType => ({
   port: Number(process.env.PORT) || 5001,
   logs: JSON.parse(process.env.LOGS),
+  appURL: process.env.APP_URL,
   jwt: {
-    secret: process.env.JWT_SECRET,
+    accessSecret: process.env.JWT_SECRET_ACCESS,
     accessExpires: process.env.JWT_ACCESS_EXPIRES || '15m',
     refreshExpires: process.env.JWT_REFRESH_EXPIRES || '7d',
   },

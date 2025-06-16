@@ -37,6 +37,13 @@ export class UserService {
     return user;
   }
 
+  async getUserById(userId: string): Promise<User> {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+    });
+    return user;
+  }
+
   async validateUser(loginDto: LoginDto): Promise<User> {
     const user = await this.userRepository.findOne({
       where: { email: loginDto.email },
