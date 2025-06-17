@@ -8,11 +8,9 @@ import { JWTModule } from 'apps/common/jwt/jwt.module';
 
 import { ProjectsService } from './service/projects.service';
 
-import { ProjectsController } from './controller/projects.controller';
-
 @Module({
   imports: [JWTModule, TypeOrmModule.forFeature([User, Project])],
-  controllers: [ProjectsController],
+  controllers: [],
   providers: [ProjectsService],
   exports: [ProjectsService],
 })

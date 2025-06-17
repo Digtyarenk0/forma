@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService as JwtNestService } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { User } from 'database/entities/user/user.entity';
+import { User } from 'database/entities/users/user.entity';
 
 import { JWTService } from './service/jwt.service';
 

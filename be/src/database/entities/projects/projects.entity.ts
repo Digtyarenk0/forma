@@ -7,7 +7,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-import { User } from '../users/users.entity';
+import { User } from '../users/user.entity';
 
 export enum ProjectsStatus {
   quenue = 'quenue',

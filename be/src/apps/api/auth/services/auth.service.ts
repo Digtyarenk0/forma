@@ -7,7 +7,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
-import { User } from 'database/entities/user/user.entity';
+import { User } from 'database/entities/users/user.entity';
 import * as Express from 'express';
 
 import { DAY } from 'apps/common/redis/constants';

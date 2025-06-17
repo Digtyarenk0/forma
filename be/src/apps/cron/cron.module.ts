@@ -10,13 +10,13 @@ import { getMetadataArgsStorage } from 'typeorm';
 import * as redisStore from 'cache-manager-redis-store';
 import { LoggerModule } from 'nestjs-pino';
 
-import { CommonModule } from './common/common.module';
+import { CommonModule } from '../common/common.module';
 
 import configuration from 'config/configuration';
 
-import { AuthModule } from './api/auth/auth.module';
-import { ProjectsModule } from './api/projects/projects.module';
-import { UserModule } from './api/user/user.module';
+import { AuthModule } from '../api/auth/auth.module';
+import { ProjectsModule } from '../api/projects/projects.module';
+import { UserModule } from '../api/user/user.module';
 
 const configImports = [
   LoggerModule.forRoot(),
@@ -54,4 +54,4 @@ const appModules = [CommonModule, UserModule, AuthModule, ProjectsModule];
 @Module({
   imports: [...configImports, ...appModules],
 })
-export class AppModule {}
+export class CronModule {}

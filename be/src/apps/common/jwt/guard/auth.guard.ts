@@ -11,7 +11,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 
-import { User } from 'database/entities/user/user.entity';
+import { User } from 'database/entities/users/user.entity';
 
 import { JWTService } from '../service/jwt.service';
 
