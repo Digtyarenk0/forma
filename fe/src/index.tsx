@@ -4,6 +4,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { HashRouter } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
 import { store } from '@/app/store'
 import { LanguageProvider } from '@/features/i18n'
@@ -19,6 +20,7 @@ root.render(
       <LanguageProvider>
         <HashRouter>
           <App />
+          <ToastContainer />
         </HashRouter>
       </LanguageProvider>
     </Provider>

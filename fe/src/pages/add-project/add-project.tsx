@@ -6,11 +6,12 @@ import { toast } from 'react-toastify'
 import { projectsApi } from '@/shared/projects/api'
 import { AddProjectFormData } from '../../types/project'
 
+const formInitData = {
+  repositoryUrl: ''
+}
 export const AddProject = () => {
   const navigate = useNavigate()
-  const [formData, setFormData] = useState<AddProjectFormData>({
-    repositoryUrl: ''
-  })
+  const [formData, setFormData] = useState<AddProjectFormData>(formInitData)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -42,6 +43,7 @@ export const AddProject = () => {
         throw new Error('Failed to add project')
       }
 
+      setFormData(formInitData)
       toast.success('The project has been created and added to the parsing queue.')
       // navigate('/projects')
     } catch (err) {

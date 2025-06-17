@@ -12,6 +12,7 @@ import { User } from '../users/user.entity';
 export enum ProjectsStatus {
   quenue = 'quenue',
   parsing = 'parsing',
+  failed = 'failed',
   parsed = 'parsed',
 }
 
@@ -50,6 +51,12 @@ export class Project {
 
   @CreateDateColumn({ comment: 'Creation date in UTC Unix timestamp format' })
   createdAt: Date;
+
+  @Column({ comment: 'Owner repository', default: '', nullable: true })
+  repOwner: string;
+
+  @Column({ comment: 'Parsing error message', default: '', nullable: true })
+  error: string;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'ownerId' })

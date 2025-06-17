@@ -14,7 +14,11 @@ export const ProjectItem = (props: IProjectItemProps) => {
       <div key={project.id} className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
         <div className="flex items-start justify-between">
           <div>
-            <h2 className="mb-2 text-xl font-semibold">-</h2>
+            {project.status === ProjectsStatus.failed ? (
+              <h2 className="mb-6 rounded-lg bg-red-50 p-4 text-red-700">{project.error}</h2>
+            ) : (
+              <h2 className="mb-2 text-xl font-semibold">-</h2>
+            )}
             <p className="mb-4 text-gray-600">Status: {project.status}</p>
             <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
               {project.url}
@@ -81,6 +85,10 @@ export const ProjectItem = (props: IProjectItemProps) => {
         <div className="text-center">
           <p className="text-sm text-gray-600">Open Issues</p>
           <p className="text-lg font-semibold">{project.openIssues}</p>
+        </div>
+        <div className="text-center">
+          <p className="text-sm text-gray-600">Owner</p>
+          <p className="text-lg font-semibold">{project.repOwner}</p>
         </div>
         <div className="text-center">
           <p className="text-sm text-gray-600">Created</p>

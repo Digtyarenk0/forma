@@ -1,12 +1,14 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 
+import { GithubModule } from 'apps/common/github/github.module';
 import { PROJECT_QUENUE_KEY } from 'apps/common/quenue/constants';
 
 import { ProjectParsingConsumer } from './consumers/project-parsing.consumer';
 
 @Module({
   imports: [
+    GithubModule,
     BullModule.registerQueue({
       name: PROJECT_QUENUE_KEY,
       defaultJobOptions: {
