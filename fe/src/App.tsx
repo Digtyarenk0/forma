@@ -1,5 +1,5 @@
-import { useEffect, useMemo } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 import { useTypedSelector } from './app/store'
 import { Sidebar } from './components/Sidebar'
@@ -17,7 +17,8 @@ const App = () => {
 
   useEffect(() => {
     authService.checkAuth()
-  }, [authService])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (!isUserAuthed) {
     return (
