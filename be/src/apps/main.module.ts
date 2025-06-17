@@ -15,6 +15,7 @@ import { CommonModule } from './common/common.module';
 import configuration from 'config/configuration';
 
 import { ApiModule } from './api/api.module';
+import { ConsumerModule } from './consumers/consumer.module';
 import { CronModule } from './cron/cron.module';
 
 const configImports = [
@@ -49,7 +50,7 @@ const configImports = [
   }),
 ];
 
-const appModules = [ApiModule, CronModule, CommonModule];
+const appModules = [ApiModule, CronModule, ConsumerModule, CommonModule];
 
 @Module({
   imports: [...configImports, ...appModules],
