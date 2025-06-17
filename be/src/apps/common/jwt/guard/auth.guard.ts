@@ -7,15 +7,20 @@ import {
   applyDecorators,
 } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { Repository } from 'typeorm';
+
+import { User } from 'database/entities/user/user.entity';
 
 import { JWTService } from '../service/jwt.service';
-import { UserService } from 'apps/user/services/user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly jwtService: JWTService,
-    private readonly userRepo: UserService,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -36,7 +41,9 @@ export class AuthGuard implements CanActivate {
         token,
       );
       if (!payload?.id) throw new UnauthorizedException('Invalid token');
-      const user = await this.userRepo.getUserById(payload.id);
+      const user = await this.userRepository.findOne({
+        where: { id: payload.id },
+      });
       if (!user) throw new UnauthorizedException('User is not registered.');
 
       request['user'] = user;

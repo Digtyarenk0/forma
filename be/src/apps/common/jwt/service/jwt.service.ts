@@ -7,7 +7,6 @@ export class JWTService {
   private readonly logger = new Logger(JWTService.name);
 
   private readonly jwtSecretAccess: string;
-  private readonly jwtSecretRefresh: string;
   private readonly jwtAccessExpire: string;
   private readonly jwtRefreshExpire: string;
 
@@ -15,8 +14,7 @@ export class JWTService {
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
   ) {
-    this.jwtSecretAccess = this.configService.get('jwt.jwtSecretAccess');
-    this.jwtSecretRefresh = this.configService.get('jwt.jwtSecretRefresh');
+    this.jwtSecretAccess = this.configService.get('jwt.accessSecret');
     this.jwtAccessExpire = this.configService.get('jwt.accessExpires');
     this.jwtRefreshExpire = this.configService.get('jwt.refreshExpires');
   }
@@ -28,7 +26,7 @@ export class JWTService {
         expiresIn: this.jwtAccessExpire,
       }),
       this.jwtService.signAsync(payload, {
-        secret: this.jwtSecretRefresh,
+        secret: this.jwtSecretAccess,
         expiresIn: this.jwtRefreshExpire,
       }),
     ]);
@@ -41,7 +39,7 @@ export class JWTService {
         secret: this.jwtSecretAccess,
       });
       return payload;
-    } catch {
+    } catch (err: any) {
       return null;
     }
   }
@@ -49,7 +47,7 @@ export class JWTService {
   async verifyRefreshToken<T>(token: string): Promise<T | null> {
     try {
       const payload = await this.jwtService.verifyAsync(token, {
-        secret: this.jwtSecretRefresh,
+        secret: this.jwtSecretAccess,
       });
       return payload;
     } catch {

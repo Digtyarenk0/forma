@@ -15,6 +15,7 @@ import { CommonModule } from './common/common.module';
 import configuration from 'config/configuration';
 
 import { AuthModule } from './api/auth/auth.module';
+import { ProjectsModule } from './api/projects/projects.module';
 import { UserModule } from './user/user.module';
 
 const configImports = [
@@ -49,7 +50,8 @@ const configImports = [
   }),
 ];
 
+const appModules = [CommonModule, UserModule, AuthModule, ProjectsModule];
 @Module({
-  imports: [...configImports, CommonModule, UserModule, AuthModule],
+  imports: [...configImports, ...appModules],
 })
 export class AppModule {}

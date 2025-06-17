@@ -1,6 +1,9 @@
 import { useState } from 'react'
+import { isAxiosError } from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
+import { projectsApi } from '@/shared/projects/api'
 import { AddProjectFormData } from '../../types/project'
 
 export const AddProject = () => {
@@ -32,21 +35,21 @@ export const AddProject = () => {
 
     try {
       const formattedUrl = formatRepositoryUrl(formData.repositoryUrl)
-      const response = await fetch('/api/projects', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ repositoryUrl: formattedUrl })
-      })
+      const response = await projectsApi.create(formattedUrl)
 
-      if (!response.ok) {
+      if (!response.id) {
+        toast.error('Failed to add project')
         throw new Error('Failed to add project')
       }
 
-      navigate('/projects')
+      toast.success('The project has been created and added to the parsing queue.')
+      // navigate('/projects')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred')
+      if (isAxiosError(err)) {
+        setError(err.response?.data?.message || err.message || 'An error occurred')
+      } else {
+        setError(err instanceof Error ? err.message : 'An error occurred')
+      }
     } finally {
       setLoading(false)
     }

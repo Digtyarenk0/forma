@@ -6,6 +6,7 @@ import { Sidebar } from './components/Sidebar'
 import { AddProject } from './pages/add-project/add-project'
 import { LoginPage } from './pages/login'
 import { Projects } from './pages/projects'
+import { RegisterPage } from './pages/registration'
 import { APP_ROUTES } from './shared/constants/routes'
 import { useAuth } from './shared/user/hooks/useAuth'
 
@@ -22,8 +23,9 @@ const App = () => {
 
   if (!isUserAuthed) {
     return (
-      <div className="flex h-screen bg-gray-50">
+      <div className="">
         <Routes>
+          <Route path={APP_ROUTES.register} element={<RegisterPage />} />
           <Route path="*" element={<LoginPage />} />
         </Routes>
       </div>

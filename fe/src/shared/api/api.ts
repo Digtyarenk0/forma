@@ -69,6 +69,7 @@ $api.interceptors.response.use(
       } catch (refreshError) {
         processQueue(refreshError, null)
         localStorage.removeItem(ELocaleStorageKeys.accessToken)
+        window.location.href = '/'
         return Promise.reject(refreshError)
       } finally {
         isRefreshing.value = false
