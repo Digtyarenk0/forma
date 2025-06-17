@@ -27,14 +27,19 @@ export class ProjectParsingConsumer {
     private readonly githubService: GithubService,
     @InjectRepository(Project)
     private readonly projectRepository: Repository<Project>,
-  ) {}
+  ) {
+    this.logger.log('ProjectParsingConsumer inited');
+  }
 
   @Process({ concurrency: 1 })
   async handleParsing(job: Job<ProjectParsingData[]>) {
     const projects = job.data;
     this.logger.debug(`Processing projects ${projects.length} `);
+    if (!Array.isArray(projects)) return;
+    if (Array.isArray(projects) && projects.length === 0) return;
 
     for await (const project of projects) {
+      // rate limit
       await delay(500);
       try {
         this.logger.debug(

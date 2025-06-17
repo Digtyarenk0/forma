@@ -56,7 +56,15 @@ export const Projects = () => {
 
   return (
     <div className="p-8">
-      <h1 className="mb-8 text-3xl font-bold">Projects</h1>
+      <div className="flex justify-around">
+        <h1 className="mb-8 text-3xl font-bold">Projects</h1>
+        <button
+          onClick={() => {}}
+          className="flex h-11 items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 font-semibold text-gray-600 shadow-sm transition-colors duration-200 hover:bg-gray-100 hover:text-gray-800"
+        >
+          refresh
+        </button>
+      </div>
       {error && <div className="mb-6 rounded-lg bg-red-50 p-4 text-red-700">{error}</div>}
       <div className="grid gap-6">
         {projects.map((project) => (

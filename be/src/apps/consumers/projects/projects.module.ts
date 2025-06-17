@@ -1,5 +1,8 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { Project } from 'database/entities/projects/projects.entity';
 
 import { GithubModule } from 'apps/common/github/github.module';
 import { PROJECT_QUENUE_KEY } from 'apps/common/quenue/constants';
@@ -23,9 +26,10 @@ import { ProjectParsingConsumer } from './consumers/project-parsing.consumer';
         duration: 1000,
       },
     }),
+    TypeOrmModule.forFeature([Project]),
   ],
   controllers: [],
   providers: [ProjectParsingConsumer],
   exports: [ProjectParsingConsumer],
 })
-export class ProjectsModule {}
+export class ProjectsProcessModule {}

@@ -4,7 +4,6 @@ import { GithubService } from './service/github.service';
 
 @Global()
 @Module({
-  imports: [GithubService],
   providers: [GithubService],
   exports: [GithubService],
 })
