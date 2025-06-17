@@ -8,21 +8,20 @@ import { NestFactory } from '@nestjs/core';
 
 import cookieParser from 'cookie-parser';
 import { Logger } from 'nestjs-pino';
+import { Swagger } from 'swagger';
 
-import { Swagger } from '../../swagger';
-import { CronModule } from './cron.module';
+import { MainModule } from 'apps/main.module';
 
 async function bootstrap() {
   const appModuleParams: NestApplicationOptions = {
     bufferLogs: true,
   };
 
-  const app = await NestFactory.create(CronModule, appModuleParams);
+  const app = await NestFactory.create(MainModule, appModuleParams);
 
   Swagger.init(app);
 
   const configService = app.get(ConfigService);
-  const port = configService.get('port') + 1;
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());
   app.enableCors({
@@ -35,9 +34,9 @@ async function bootstrap() {
     app.useLogger(app.get(Logger));
   }
 
-  await app.listen(port, () => {
-    console.log(`Server started on port: ${port}`);
-    console.log(`Swagger: ${port}/swagger`);
+  await app.listen(configService.get('port'), () => {
+    console.log(`Server started on port: ${configService.get('port')}`);
+    console.log(`Swagger: ${configService.get('port')}/swagger`);
   });
 }
 bootstrap();
