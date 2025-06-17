@@ -13,11 +13,11 @@ import * as Express from 'express';
 import { DAY } from 'apps/common/redis/constants';
 import { CacheService } from 'apps/common/redis/service/cache.service';
 
-import { UserService } from 'apps/user/services/user.service';
+import { UserService } from 'apps/api/user/services/user.service';
 
-import { LoginDto } from 'apps/user/dto/login.dto';
+import { LoginDto } from 'apps/api/user/dto/login.dto';
 
-import { RegisterDto } from '../../../user/dto/register.dto';
+import { RegisterDto } from '../../user/dto/register.dto';
 import { AUTH_TOKENS_CONFIG } from '../constants';
 import { AuthLoginRes, TokenPayload } from '../types';
 

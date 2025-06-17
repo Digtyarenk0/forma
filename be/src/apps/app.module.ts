@@ -16,7 +16,7 @@ import configuration from 'config/configuration';
 
 import { AuthModule } from './api/auth/auth.module';
 import { ProjectsModule } from './api/projects/projects.module';
-import { UserModule } from './user/user.module';
+import { UserModule } from './api/user/user.module';
 
 const configImports = [
   LoggerModule.forRoot(),
