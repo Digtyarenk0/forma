@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { useTypedSelector } from '@/app/store'
 import { APP_ROUTES } from '@/shared/constants/routes'
 
 export const Sidebar = () => {
   const user = useTypedSelector((s) => s.user)
+  const navigate = useNavigate()
 
   return (
     <div className="h-screen w-64 border-r border-gray-200 bg-gray-50 p-4">
@@ -14,9 +15,9 @@ export const Sidebar = () => {
       </div>
 
       <nav className="space-y-2">
-        <Link
-          to={APP_ROUTES.projects}
-          className="flex items-center rounded-lg px-4 py-2 text-gray-700 transition-colors hover:bg-gray-100"
+        <button
+          onClick={() => navigate(APP_ROUTES.projects)}
+          className="flex w-full items-center rounded-lg px-4 py-2 text-gray-700 transition-colors hover:bg-gray-100"
         >
           <svg className="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -27,17 +28,17 @@ export const Sidebar = () => {
             />
           </svg>
           Projects
-        </Link>
+        </button>
 
-        <Link
-          to={APP_ROUTES.addProject}
-          className="flex items-center rounded-lg px-4 py-2 text-gray-700 transition-colors hover:bg-gray-100"
+        <button
+          onClick={() => navigate(APP_ROUTES.addProject)}
+          className="flex w-full items-center rounded-lg px-4 py-2 text-gray-700 transition-colors hover:bg-gray-100"
         >
           <svg className="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
           Add Project
-        </Link>
+        </button>
       </nav>
     </div>
   )

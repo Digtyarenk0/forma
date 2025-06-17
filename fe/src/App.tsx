@@ -19,20 +19,24 @@ const App = () => {
     authService.checkAuth()
   }, [authService])
 
-  /* authed */
-  return (
-    <div className="flex h-screen bg-gray-50">
-      {isUserAuthed && <Sidebar />}
-      <main className="flex-1 overflow-auto">
+  if (!isUserAuthed) {
+    return (
+      <div className="flex h-screen bg-gray-50">
         <Routes>
           <Route path="*" element={<LoginPage />} />
-          {isUserAuthed && (
-            <>
-              <Route path={APP_ROUTES.main} element={<Navigate to={APP_ROUTES.projects} replace />} />
-              <Route path={APP_ROUTES.projects} element={<Projects />} />
-              <Route path={APP_ROUTES.addProject} element={<AddProject />} />
-            </>
-          )}
+        </Routes>
+      </div>
+    )
+  }
+
+  return (
+    <div className="flex h-screen bg-gray-50">
+      <Sidebar />
+      <main className="flex-1 overflow-auto">
+        <Routes>
+          <Route path={APP_ROUTES.projects} element={<Projects />} />
+          <Route path={APP_ROUTES.addProject} element={<AddProject />} />
+          <Route path="*" element={<Projects />} />
         </Routes>
       </main>
     </div>

@@ -8,11 +8,11 @@ export const Projects = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await fetch('/api/projects')
-      if (response.ok) {
-        const data = await response.json()
-        setProjects(data)
-      }
+      // const response = await fetch('/api/projects')
+      // if (response.ok) {
+      //   const data = await response.json()
+      //   setProjects(data)
+      // }
     } catch (error) {
       console.error('Failed to fetch projects:', error)
     } finally {
@@ -33,9 +33,9 @@ export const Projects = () => {
     }
   }
 
-  // useEffect(() => {
-  //   fetchProjects()
-  // }, [])
+  useEffect(() => {
+    fetchProjects()
+  }, [])
 
   if (loading) {
     return (
