@@ -1,19 +1,25 @@
+import { InjectQueue } from '@nestjs/bull';
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 
+import { Queue } from 'bull';
 import {
   Project,
   ProjectsStatus,
 } from 'database/entities/projects/projects.entity';
+
+import { PROJECT_QUENUE_KEY } from 'apps/common/quenue/constants';
 
 @Injectable()
 export class ProjectsService {
   private readonly logger = new Logger(ProjectsService.name);
 
   constructor(
+    @InjectQueue(PROJECT_QUENUE_KEY)
+    private readonly projectParsingQuenue: Queue,
     @InjectRepository(Project)
     private readonly projectRepository: Repository<Project>,
   ) {
@@ -29,9 +35,11 @@ export class ProjectsService {
 
       if (queuedProjects.length > 0) {
         this.logger.log(`Found ${queuedProjects.length} projects in queue`);
-        queuedProjects.forEach((project) => {
-          this.logger.log(`Project ID: ${project.id}`);
-        });
+        const quenueData = queuedProjects.map((p) => ({
+          id: p.id,
+          url: p.url,
+        }));
+        await this.projectParsingQuenue.add(quenueData);
       } else {
         this.logger.log('No projects in queue');
       }
