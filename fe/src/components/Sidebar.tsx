@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 
+import { useTypedSelector } from '@/app/store'
 import { APP_ROUTES } from '@/shared/constants/routes'
-import { useAuth } from '../hooks/useAuth'
 
 export const Sidebar = () => {
-  const { user } = useAuth()
+  const user = useTypedSelector((s) => s.user)
 
   return (
     <div className="h-screen w-64 border-r border-gray-200 bg-gray-50 p-4">

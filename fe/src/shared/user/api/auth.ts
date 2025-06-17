@@ -1,6 +1,5 @@
-import { AuthResponse, LoginRegisterRequest } from '../types/auth'
-
-import { $api } from './api'
+import { $api } from '../../api/api'
+import { AuthResponse, LoginRegisterRequest } from '../../types/auth'
 
 export const authApi = {
   login: async (data: LoginRegisterRequest): Promise<AuthResponse> => {

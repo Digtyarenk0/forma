@@ -1,39 +1,41 @@
-import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
+import { useEffect, useMemo } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
+import { useTypedSelector } from './app/store'
 import { Sidebar } from './components/Sidebar'
-import { useAuth } from './hooks/useAuth'
-import { AddProject } from './pages/AddProject'
+import { AddProject } from './pages/add-project/add-project'
 import { LoginPage } from './pages/login'
-import { Projects } from './pages/Projects'
+import { Projects } from './pages/projects'
 import { APP_ROUTES } from './shared/constants/routes'
+import { useAuth } from './shared/user/hooks/useAuth'
 
 const App = () => {
-  const { user, loading } = useAuth()
+  const authService = useAuth()
+  const user = useTypedSelector((s) => s.user)
 
-  if (loading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-gray-900"></div>
-      </div>
-    )
-  }
+  const isUserAuthed = user?.email && user.inited
 
+  useEffect(() => {
+    authService.checkAuth()
+  }, [authService])
+
+  /* authed */
   return (
-    <Router>
-      <div className="flex h-screen bg-gray-50">
-        <Sidebar />
-        <main className="flex-1 overflow-auto">
-          <Routes>
-            <Route path={APP_ROUTES.main} element={<Navigate to={APP_ROUTES.projects} replace />} />
-            <Route path={APP_ROUTES.projects} element={<Projects />} />
-            <Route path={APP_ROUTES.addProject} element={<AddProject />} />
-            <Route path="*" element={<LoginPage />} />
-            {/*  */}
-            {!user && <Navigate to={APP_ROUTES.login} replace />}
-          </Routes>
-        </main>
-      </div>
-    </Router>
+    <div className="flex h-screen bg-gray-50">
+      {isUserAuthed && <Sidebar />}
+      <main className="flex-1 overflow-auto">
+        <Routes>
+          <Route path="*" element={<LoginPage />} />
+          {isUserAuthed && (
+            <>
+              <Route path={APP_ROUTES.main} element={<Navigate to={APP_ROUTES.projects} replace />} />
+              <Route path={APP_ROUTES.projects} element={<Projects />} />
+              <Route path={APP_ROUTES.addProject} element={<AddProject />} />
+            </>
+          )}
+        </Routes>
+      </main>
+    </div>
   )
 }
 

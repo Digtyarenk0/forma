@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { AddProjectFormData } from '../types/project'
+import { AddProjectFormData } from '../../types/project'
 
 export const AddProject = () => {
   const navigate = useNavigate()

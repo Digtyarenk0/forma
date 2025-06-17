@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Project } from '../types/project'
+import { Project } from '../../types/project'
 
 export const Projects = () => {
   const [projects, setProjects] = useState<Project[]>([])
@@ -33,9 +33,9 @@ export const Projects = () => {
     }
   }
 
-  useEffect(() => {
-    fetchProjects()
-  }, [])
+  // useEffect(() => {
+  //   fetchProjects()
+  // }, [])
 
   if (loading) {
     return (

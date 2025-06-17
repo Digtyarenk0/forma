@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { setUserEmail } from '@/app/store/userSlice'
-import { authApi } from '@/shared/api/auth'
+import { authApi } from '@/shared/user/api/auth'
 import { APP_ROUTES } from '@/shared/constants/routes'
 import { decodeJwt } from '@/shared/lib/jwt'
 import { ELocaleStorageKeys } from '@/shared/types/auth'
