@@ -1,4 +1,18 @@
 services:
+  app:
+    container_name: app
+    build: .
+    env_file:
+      - ./fe/.env
+      - ./be/.env
+    ports:
+      - "5001:5001"
+    depends_on:
+      - database
+    networks:
+      - app-network
+    restart: always
+
   database:
     container_name: database
     image: postgres:17

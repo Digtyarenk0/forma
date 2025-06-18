@@ -97,6 +97,24 @@ yarn start
 
 The Docker setup for this project is currently under development and not yet ready for use.
 
+#### Shotdown
+
+```bash
+docker compose down
+```
+
+#### Build
+
+```bash
+docker compose build --no-cache
+```
+
+#### Start
+
+```bash
+docker compose up
+```
+
 ## Background Services
 
 ### Cron Service
