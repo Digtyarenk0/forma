@@ -7,10 +7,10 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 
 import cookieParser from 'cookie-parser';
-import { Logger } from 'nestjs-pino';
-import { Swagger } from 'swagger';
 
 import { MainModule } from 'apps/main.module';
+
+import { Swagger } from './swagger';
 
 async function bootstrap() {
   const appModuleParams: NestApplicationOptions = {
@@ -30,9 +30,9 @@ async function bootstrap() {
   });
 
   NestLogger.log(`App logs: ${configService.get('logs')}`, 'Config');
-  if (configService.get('logs')) {
-    app.useLogger(app.get(Logger));
-  }
+  // if (configService.get('logs')) {
+  //   app.useLogger(app.get(Logger));
+  // }
 
   await app.listen(configService.get('port'), () => {
     console.log(`Server started on port: ${configService.get('port')}`);

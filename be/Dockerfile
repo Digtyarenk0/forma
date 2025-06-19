@@ -1,9 +1,14 @@
-FROM node:18-bookworm 
+FROM node:22.3.0
 
-ENV CI=true
+WORKDIR /app
 
-# Build app
-RUN yarn install && yarn run build
+COPY package.json yarn.lock ./
 
-EXPOSE 5001
-CMD [ "yarn", "run", "start:prod"]
+RUN yarn install --frozen-lockfile
+RUN npm rebuild bcrypt --build-from-source
+
+COPY . .
+
+RUN chmod +x entrypoint.sh
+
+ENTRYPOINT ["/bin/bash", "entrypoint.sh"]

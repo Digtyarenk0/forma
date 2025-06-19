@@ -50,6 +50,8 @@ export const LoginPage = () => {
       })
 
       const decodedToken = decodeJwt(response.accessToken)
+      console.log(' decodedToken:', decodedToken)
+
       if (decodedToken?.email) {
         dispatch(setUserEmail(decodedToken.email))
         localStorage.setItem(ELocaleStorageKeys.accessToken, response.accessToken)

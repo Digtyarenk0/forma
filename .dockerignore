@@ -1,9 +1,0 @@
-.git
-
-# Build outputs
-
-./fe/dist/
-./fe/build/
-
-./be/dist/
-./be/build/

@@ -20,6 +20,7 @@ const App = () => {
     authService.checkAuth()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  console.log(' isUserAuthed:', user)
 
   if (!isUserAuthed) {
     return (

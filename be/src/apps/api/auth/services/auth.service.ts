@@ -17,6 +17,8 @@ import { UserService } from 'apps/api/user/services/user.service';
 
 import { LoginDto } from 'apps/api/user/dto/login.dto';
 
+import { JwtConfig } from 'config/configuration/config.type';
+
 import { RegisterDto } from '../../user/dto/register.dto';
 import { AUTH_TOKENS_CONFIG } from '../constants';
 import { AuthLoginRes, TokenPayload } from '../types';
@@ -37,10 +39,12 @@ export class AuthService {
     private readonly cacheService: CacheService,
     private readonly configService: ConfigService,
   ) {
-    this.jwtSecretAccess = this.configService.get('jwt.jwtSecretAccess');
-    this.jwtSecretRefresh = this.configService.get('jwt.jwtSecretRefresh');
-    this.jwtAccessExpire = this.configService.get('jwt.accessExpires');
-    this.jwtRefreshExpire = this.configService.get('jwt.refreshExpires');
+    this.jwtSecretAccess = this.configService.get<JwtConfig>('jwt').secret;
+    this.jwtSecretRefresh = this.configService.get<JwtConfig>('jwt').secret;
+    this.jwtAccessExpire =
+      this.configService.get<JwtConfig>('jwt').accessExpires;
+    this.jwtRefreshExpire =
+      this.configService.get<JwtConfig>('jwt').refreshExpires;
   }
 
   async register(

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 import { ELocaleStorageKeys } from '../types/auth'
 
@@ -68,6 +69,7 @@ $api.interceptors.response.use(
         return $api(originalRequest)
       } catch (refreshError) {
         processQueue(refreshError, null)
+        toast.warn('Session end')
         localStorage.removeItem(ELocaleStorageKeys.accessToken)
         window.location.href = '/'
         return Promise.reject(refreshError)

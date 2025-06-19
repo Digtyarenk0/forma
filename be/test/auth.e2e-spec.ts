@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
-import { AppModule } from '../src/apps/cron/cron.module';
+import { AppModule } from '../src/apps/main.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { User } from '../src/database/entities/users/user.entity';
+import { User } from '../src/database/entities/user/user.entity';
 
 describe('AuthController (e2e)', () => {
   let app: INestApplication;

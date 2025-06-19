@@ -1,3 +1,17 @@
+## 🚀 Start the Application
+
+To start the application:
+
+1. Create a `.env` file based on the provided `.env.example`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Build and run the app with Docker Compose:
+   ```bash
+    docker compose up --build
+   ```
+
 # NestJS Kit
 
 A NestJS application template with pre-installed modules and configured architecture.
@@ -138,7 +152,7 @@ DB_PASSWORD=postgres
 DB_DATABASE=kit_b
 
 # JWT
-JWT_SECRET_ACCESS=secret 
+JWT_SECRET=your_jwt_secret
 JWT_ACCESS_EXPIRES=15m
 JWT_REFRESH_EXPIRES=7d
 
