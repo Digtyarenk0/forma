@@ -2,6 +2,7 @@ import {
   Logger as NestLogger,
   NestApplicationOptions,
   ValidationPipe,
+  Logger,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
@@ -25,18 +26,21 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());
   app.enableCors({
-    origin: [configService.get('appURL'), 'http://localhost:3001'],
+    origin: configService.get('appURL'),
     credentials: true,
   });
 
   NestLogger.log(`App logs: ${configService.get('logs')}`, 'Config');
-  // if (configService.get('logs')) {
-  //   app.useLogger(app.get(Logger));
-  // }
 
-  await app.listen(configService.get('port'), () => {
-    console.log(`Server started on port: ${configService.get('port')}`);
-    console.log(`Swagger: ${configService.get('port')}/swagger`);
+  const logger = new Logger('App');
+  await app.listen(configService.get('port'), async () => {
+    const url = await app.getUrl();
+    logger.log(`Starting application`, {
+      port: configService.get('port'),
+      url,
+      swagger: url + '/swagger',
+      nodeVersion: process.version,
+    });
   });
 }
 bootstrap();
